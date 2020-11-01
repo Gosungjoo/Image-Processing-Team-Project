@@ -4,6 +4,11 @@ Color::Color()
 	: r{0}, g{0}, b{0}
 {}
 
+Color::Color(int red, int green, int blue)
+	: r{ red }, g{ green }, b{ blue }
+{}
+
+
 Color::Color(cv::Vec3b &color)
 : r{(int)color[0]}, g{(int)color[1]}, b{(int)color[2]}
 {}
@@ -18,13 +23,7 @@ Color &Color::operator=(const Color& color)
 	return _color;
 }
 
-cv::Vec3b& Color::toVec3b()
+cv::Vec3b Color::toVec3b()
 {
-	cv::Vec3b vec;
-
-	vec.val[0] = r;
-	vec.val[1] = g;
-	vec.val[2] = b;
-
-	return vec;
+	return cv::Vec3b{ uchar(r), uchar(g), uchar(b) };
 }
