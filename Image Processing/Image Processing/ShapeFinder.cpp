@@ -8,22 +8,53 @@
 #include "Color.h"
 
 ShapeFinder::ShapeFinder(std::string file_path)
-	: _file_path{file_path}
-{}
-
-void ShapeFinder::find()
+	: _file_path{ file_path }, _image{ cv::imread(_file_path, cv::IMREAD_COLOR) }
 {
-	std::cout << "Searching form for file " << _file_path << std::endl;
-
-	cv::Mat image;
-	image = cv::imread(_file_path, cv::IMREAD_COLOR);
-	if (image.empty()) {
+	if (_image.empty()) {
 		std::cout << "Could not open or find the image: " << _file_path << std::endl;
 		throw std::runtime_error{ "Could not open or find the image: " + _file_path };
 	}
 
-	cv::Vec3b &vcolor = image.at<cv::Vec3b>(50, 50);
-	Color color(vcolor);
+	for (int y = 0; y < _image.rows; y++) {
+		std::vector<Color> row{};
+		for (int x = 0; x < _image.cols; x++) {
+			Color pixel_color{ _image.at<cv::Vec3b>(x, y) };
+			row.emplace_back(pixel_color);
+		}
+		_map.emplace_back(row);
+	}
+}
 
-	std::cout << "Color: " << color.r << " " << color.g << " " << color.b << std::endl;
+void ShapeFinder::find()
+{
+	int masks[4][3][3] = {
+		{ { 1, 2, 1 }, { 0, 0, 0 }, { -1, -2, -1 } },
+		{ { 1, 0, -1 }, { 2, 0, -2 }, { 1, 0, -1 } },
+		{ { 0, -1, -2 }, { 1, 0, -1 }, { 2, 1, 0 } },
+		{ { 2, 1, 0 }, { 1, 0, -1 }, { 0, -1, -2 } }
+	};
+
+	//for (int x = 0; x < _image.rows; x++) {
+	//	for (int y = 0; y < _image.cols; y++) {
+	//		cv::Vec3b &vcolor = _image.at<cv::Vec3b>(x, y);
+	//		Color color(vcolor);
+
+	//		std::cout << "Color: " << color.r << " " << color.g << " " << color.b << std::endl;
+	//	}
+	//}
+}
+
+decltype(ShapeFinder::_map) ShapeFinder::apply_mask()
+{
+	decltype(_map) map{};
+
+	for (int y = 1; y < _image.rows - 1; y++) {
+		for (int x = 1; x < _image.cols - 1; x++) {
+			for (int y2 = 0; y2 < 3; y2++)
+				for (int x2 = 0; x2 < 3; x++) {
+					
+				}
+		}
+	}
+	return _map;
 }
