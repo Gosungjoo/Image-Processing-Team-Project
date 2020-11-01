@@ -6,6 +6,8 @@ public:
 	int g{ 0 };
 	int b{ 0 };
 
+	Color();
 	Color(cv::Vec3b &color);
+	Color& operator=(const Color& color);
 	cv::Vec3b& toVec3b();
 };
