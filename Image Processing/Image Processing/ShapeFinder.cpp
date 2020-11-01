@@ -35,14 +35,14 @@ void ShapeFinder::find()
 		{ { 2, 1, 0 }, { 1, 0, -1 }, { 0, -1, -2 } }
 	};
 	
+	cv::namedWindow("original", cv::WINDOW_AUTOSIZE);
+	cv::imshow("original", _image);
 
 	for (auto i = 0; i < 4; i++) {
 		std::stringstream ss{};
 
 		ss << "Image " << i;
 		const auto img = image_from_map(apply_mask(masks[i]));
-		cv::namedWindow("original", cv::WINDOW_AUTOSIZE);
-		cv::imshow("original", _image);
 		cv::namedWindow(ss.str(), cv::WINDOW_AUTOSIZE);
 		cv::imshow(ss.str(), img);
 	}
