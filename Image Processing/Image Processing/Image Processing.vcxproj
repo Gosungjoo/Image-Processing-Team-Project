@@ -19,11 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FormFinder.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="ShapeFinder.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Color.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FormFinder.h" />
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="ShapeFinder.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
