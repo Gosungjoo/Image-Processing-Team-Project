@@ -26,6 +26,51 @@ ShapeFinder::ShapeFinder(std::string file_path)
 	}
 }
 
+
+void ShapeFinder::edge_finder_line(Map map, int basex, int basey, int incrementx, int incrementy)
+{
+	for (int y = basey; y < map.size() && y > 0; y += incrementy) {
+		for (int x = basex; x < map[0].size() && x > 0; x += incrementx) {
+			cv::Point point = cv::Point(x, y);
+			if (map[y][x] != Color(0, 0, 0)) {
+				bool to_add = true;
+				for (const auto& elem : _edges) {
+					if (elem.x < point.x + 50 && elem.x > point.x - 50 && elem.y < point.y + 50 && elem.y > point.y - 50) {
+						to_add = false;
+						break;
+					}
+				}
+
+				if (to_add) 
+					_edges.push_back(cv::Point(x, y));
+				return;
+			}
+		}
+	}
+}
+
+void ShapeFinder::edge_finder_column(Map map, int basex, int basey, int incrementx, int incrementy)
+{
+	for (int x = basex; x < map[0].size() && x > 0; x += incrementx) {
+		for (int y = basey; y < map.size() && y > 0; y += incrementy) {
+			cv::Point point = cv::Point(x, y);
+			if (map[y][x] != Color(0, 0, 0)) {
+				bool to_add = true;
+				for (const auto& elem : _edges) {
+					if (elem.x < point.x + 50 && elem.x > point.x - 50 && elem.y < point.y + 50 && elem.y > point.y - 50) {
+						to_add = false;
+						break;
+					}
+				}
+
+				if (to_add)
+					_edges.push_back(cv::Point(x, y));
+				return;
+			}
+		}
+	}
+}
+
 void ShapeFinder::find()
 {
 	static int masks[4][3][3] = {
@@ -34,20 +79,29 @@ void ShapeFinder::find()
 		{ { 0, -1, -2 }, { 1, 0, -1 }, { 2, 1, 0 } },
 		{ { 2, 1, 0 }, { 1, 0, -1 }, { 0, -1, -2 } }
 	};
-	
 
 	for (auto i = 0; i < 4; i++) {
 		std::stringstream ss{};
 
-		ss << "Image " << i;
-		const auto img = image_from_map(apply_mask(masks[i]));
-		cv::namedWindow("original", cv::WINDOW_AUTOSIZE);
-		cv::imshow("original", _image);
-		cv::namedWindow(ss.str(), cv::WINDOW_AUTOSIZE);
-		cv::imshow(ss.str(), img);
+		Map map = apply_mask(masks[i]);
+
+		edge_finder_line(map, 1, 1, 1, 1);
+		edge_finder_line(map, 1, map.size() - 1, 1, -1);
+		edge_finder_line(map, map[0].size() - 1, 1, -1, 1);
+		edge_finder_line(map, map[0].size() - 1, map.size() - 1, -1, -1);
+
+		edge_finder_column(map, 1, 1, 1, 1);
+		edge_finder_column(map, 1, map.size() - 1, 1, -1);
+		edge_finder_column(map, map[0].size() - 1, 1, -1, 1);
+		edge_finder_column(map, map[0].size() - 1, map.size() - 1, -1, -1);
 	}
 
-	cv::waitKey();
+	if (_edges.size() == 4)
+		std::cout << "The shape is a square." << std::endl;
+	else if (_edges.size() == 3)
+		std::cout << "The shape is a triangle." << std::endl;
+	else
+		std::cout << "Unknow shapes (" << _edges.size() << " edges)." << std::endl;
 }
 
 

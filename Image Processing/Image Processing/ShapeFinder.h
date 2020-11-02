@@ -15,6 +15,7 @@ using Map = std::vector<std::vector<Color>>;
 
 class ShapeFinder {
 private:
+	std::vector<cv::Point> _edges{};
 	std::string _file_path{ "" };
 	cv::Mat _image{};
 
@@ -28,4 +29,6 @@ public:
 	void find(void);
 	decltype(_map) apply_mask(int mask[3][3]);
 	cv::Mat image_from_map(Map map);
+	void edge_finder_line(Map map, int basex, int basey, int incrementx, int incrementy);
+	void edge_finder_column(Map map, int basex, int basey, int incrementx, int incrementy);
 };

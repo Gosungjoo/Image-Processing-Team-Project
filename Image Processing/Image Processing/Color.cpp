@@ -27,3 +27,8 @@ cv::Vec3b Color::toVec3b()
 {
 	return cv::Vec3b{ uchar(r), uchar(g), uchar(b) };
 }
+
+bool Color::operator!=(const Color& color) const
+{
+	return r != color.r || g != color.g || b != color.b;
+}
