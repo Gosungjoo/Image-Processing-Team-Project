@@ -80,6 +80,7 @@ void ShapeFinder::find()
 		{ { 2, 1, 0 }, { 1, 0, -1 }, { 0, -1, -2 } }
 	};
 
+
 	for (auto i = 0; i < 4; i++) {
 		std::stringstream ss{};
 
@@ -94,6 +95,7 @@ void ShapeFinder::find()
 		edge_finder_column(map, 1, map.size() - 1, 1, -1);
 		edge_finder_column(map, map[0].size() - 1, 1, -1, 1);
 		edge_finder_column(map, map[0].size() - 1, map.size() - 1, -1, -1);
+
 	}
 
 	if (_edges.size() == 4)
