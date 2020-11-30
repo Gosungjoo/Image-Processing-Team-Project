@@ -1,3 +1,3 @@
-# image-processing-01
+# image-processing-02
 
-Made by Antoine ORDONEZ and lucas CLAISSE
+Made by Go sung-joo, Kim min-soo, Antoine Ordonez and Lucas Claisse

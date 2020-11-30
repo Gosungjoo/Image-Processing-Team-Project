@@ -21,7 +21,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShapeFinder.cpp">
+    <ClCompile Include="Video.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShapeFinder.h">
+    <ClInclude Include="Video.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

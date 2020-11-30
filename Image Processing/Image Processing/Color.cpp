@@ -23,7 +23,7 @@ Color &Color::operator=(const Color& color)
 	return _color;
 }
 
-cv::Vec3b Color::toVec3b()
+cv::Vec3b Color::toVec3b() const
 {
 	return cv::Vec3b{ uchar(r), uchar(g), uchar(b) };
 }

@@ -12,6 +12,7 @@ public:
 	Color(cv::Vec3b &color);
 	Color(int r, int g, int b);
 	Color& operator=(const Color& color);
+
 	bool operator!=(const Color& color) const;
-	cv::Vec3b toVec3b();
+	cv::Vec3b toVec3b() const;
 };
